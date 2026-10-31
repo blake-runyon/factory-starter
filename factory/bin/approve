@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# HUMAN-ONLY: mark a factory artifact as approved (or done).
+# Usage: factory/bin/approve <file> [status]   (status defaults to "approved")
+set -euo pipefail
+
+file="${1:?usage: factory/bin/approve <file> [approved|done]}"
+new_status="${2:-approved}"
+case "$new_status" in approved|done) ;; *) echo "status must be approved or done" >&2; exit 1;; esac
+[[ -f "$file" ]] || { echo "no such file: $file" >&2; exit 1; }
+
+WHO="$(git config user.name 2>/dev/null || whoami)" \
+TODAY="$(date +%F)" \
+NEW="$new_status" \
+perl -0pi -e '
+  s/^status:.*$/status: $ENV{NEW}/m;
+  s/^approved_by:.*$/approved_by: $ENV{WHO}/m;
+  s/^approved_on:.*$/approved_on: $ENV{TODAY}/m;
+' "$file"
+
+echo "$file -> $new_status (by $(git config user.name 2>/dev/null || whoami), $(date +%F))"

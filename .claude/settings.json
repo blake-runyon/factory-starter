@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "deny": [
+      "Bash(factory/bin/approve:*)",
+      "Bash(./factory/bin/approve:*)",
+      "Bash(git merge:*)",
+      "Bash(git push:*)",
+      "Bash(git rebase:*)"
+    ]
+  }
+}
