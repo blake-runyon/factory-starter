@@ -51,5 +51,7 @@ Stage artifacts live in `factory/`. Follow these rules in every session.
 - The `starter:` tests are the skeleton's smoke tests. Keep them passing; update them only
   if a task deliberately replaces the starter page or health endpoint.
 
-## Stage commands
-`/factory-spec`, `/factory-plan`, `/factory-build NNN`, `/factory-review NNN`, `/factory-status`
+## Stage commands (from the `factory` Claude Code plugin)
+`/factory:spec`, `/factory:plan`, `/factory:build NNN`, `/factory:review NNN`, `/factory:status`.
+The plugin also enforces the gates: Claude cannot approve artifacts, edit approved ones,
+run `factory/bin/approve`, or `git push` / `merge` / `rebase`.

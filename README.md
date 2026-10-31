@@ -31,18 +31,21 @@ apps/
     e2e/          Playwright tests (start their own servers on :3101 / :5174)
 docker-compose.yml   Postgres (creates app and app_test databases)
 factory/          spec, plan and task artifacts + bin/approve
-.claude/          factory stage commands and permission guardrails
+.claude/          permission guardrails (backup to the plugin's gates)
 CLAUDE.md         rules Claude Code follows in this project
 ```
 
 ## The factory workflow
 
+The stage commands come from the **factory** Claude Code plugin (installed once, works in
+every project), which lives in the software-factory repo.
+
 | Step | Command | You do (gate) |
 |---|---|---|
-| Spec | `/factory-spec <idea>` | Review `factory/spec.md`, then `factory/bin/approve factory/spec.md` |
-| Plan | `/factory-plan` | Review plan + tasks, then `factory/bin/approve factory/plan.md` |
-| Build | `/factory-build 001` | Review the branch diff, approve the task, merge it yourself |
-| Review | `/factory-review 001` | Optional independent review before you decide |
-| Status | `/factory-status` | Shows the next action |
+| Spec | `/factory:spec <idea>` | Review `factory/spec.md`, then `factory/bin/approve factory/spec.md` |
+| Plan | `/factory:plan` | Review plan + tasks, then `factory/bin/approve factory/plan.md` |
+| Build | `/factory:build 001` | Review the branch diff, approve the task, merge it yourself |
+| Review | `/factory:review 001` | Optional independent review before you decide |
+| Status | `/factory:status` | Shows the next action |
 
 Claude is not allowed to approve artifacts, merge, or push. Those steps stay with you.

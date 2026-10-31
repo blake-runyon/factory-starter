@@ -28,7 +28,7 @@ approved_on:
 <!-- Entities, endpoints, components, migrations touched. -->
 
 ## Build report
-<!-- Filled in by Claude at the end of /factory-build. -->
+<!-- Filled in by Claude at the end of /factory:build. -->
 - **Branch:**
 - **Files changed:**
 - **Tests added:**
@@ -37,7 +37,7 @@ approved_on:
 - **Open questions:**
 
 ## Review notes
-<!-- Filled in by /factory-review and/or the human. -->
+<!-- Filled in by /factory:review and/or the human. -->
 
 ## Human review checklist
 - [ ] Diff read end to end (`git diff main...<branch>`)
