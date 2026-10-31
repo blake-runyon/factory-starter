@@ -31,7 +31,8 @@ export default defineConfig({
       command: "npx tsx src/server.ts",
       cwd: "../api",
       url: `http://localhost:${E2E_API_PORT}/api/health`,
-      env: { API_PORT: E2E_API_PORT, DB_NAME: testDb },
+      // WEB_PORT sets better-auth's baseURL, so it trusts the e2e web origin.
+      env: { API_PORT: E2E_API_PORT, DB_NAME: testDb, WEB_PORT: E2E_WEB_PORT },
       reuseExistingServer: false,
       timeout: 60_000,
     },

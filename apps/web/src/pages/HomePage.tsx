@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { AuthNav } from "@/components/AuthNav";
 import { Button } from "@/components/ui/button";
 
 type Health = { status: string; db: string };
@@ -26,6 +27,7 @@ export default function HomePage() {
 
   return (
     <main className="mx-auto flex min-h-svh max-w-xl flex-col justify-center gap-6 p-6">
+      <AuthNav />
       <h1 className="text-3xl font-semibold tracking-tight">{document.title}</h1>
       <p className="text-muted-foreground">
         Built by the Software Factory. Replace this page with your first feature.
