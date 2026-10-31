@@ -15,6 +15,7 @@
     "migration:revert": "npm run typeorm -- migration:revert -d src/data-source.ts"
   },
   "dependencies": {
+    "better-auth": "^1.7.14",
     "express": "^5.3.0",
     "pg": "^8.23.1",
     "reflect-metadata": "^0.2.2",

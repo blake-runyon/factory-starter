@@ -9,7 +9,15 @@ export interface Config {
     password: string;
     database: string;
   };
+  auth: {
+    /** Signs session cookies. Must be set (32+ random chars) outside development/test. */
+    secret: string;
+    /** Public origin the browser uses to reach the app (the web server, which proxies /api). */
+    baseURL: string;
+  };
 }
+
+const DEV_AUTH_SECRET = "dev-only-insecure-better-auth-secret-change-me";
 
 /** Pure: build config from an env object. Defaults match docker-compose.yml. */
 export function loadConfig(env: Record<string, string | undefined>): Config {
@@ -22,7 +30,21 @@ export function loadConfig(env: Record<string, string | undefined>): Config {
       password: env.DB_PASSWORD ?? "app",
       database: env.DB_NAME ?? "app",
     },
+    auth: {
+      secret: authSecret(env),
+      baseURL:
+        env.BETTER_AUTH_URL ||
+        `http://localhost:${toPort(env.WEB_PORT, 5173, "WEB_PORT")}`,
+    },
   };
+}
+
+function authSecret(env: Record<string, string | undefined>): string {
+  if (env.BETTER_AUTH_SECRET) return env.BETTER_AUTH_SECRET;
+  if (env.NODE_ENV === "production") {
+    throw new Error("BETTER_AUTH_SECRET must be set in production");
+  }
+  return DEV_AUTH_SECRET;
 }
 
 function toPort(value: string | undefined, fallback: number, name: string): number {

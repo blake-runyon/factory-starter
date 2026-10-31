@@ -23,6 +23,11 @@ Stage artifacts live in `factory/`. Follow these rules in every session.
 ## Code conventions
 - **API:** `createApp(dataSource)` in `apps/api/src/app.ts` builds the app; add feature
   routers there. Routes live under `/api/*`. Errors return JSON `{ error: string }`.
+- **Auth:** better-auth (email + password), built in `apps/api/src/auth.ts` and mounted at
+  `/api/auth/*`. Protect routes with `requireAuth(auth)` (session on `res.locals.session`).
+  Its tables (`user`, `session`, `account`, `verification`) come from a migration, not entities.
+  Web: `@/lib/auth-client` (`useSession`, `signIn`, `signUp`, `signOut`); wrap protected
+  routes in `<RequireAuth>`.
 - **Entities:** one per file in `apps/api/src/entities/`, registered in `entities/index.ts`.
   Every `@Column` needs an explicit `type`. Wrap relation types in `Relation<>`.
   See `apps/api/src/entities/README.md`.
